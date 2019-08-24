@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+    version="2.1">
+
+    <persistence-unit name="db-test" transaction-type="RESOURCE_LOCAL">
+
+        <!-- add classes -->
+        <class>ec.tod1.modelo.Inventario</class>
+        <class>ec.tod1.modelo.Orden</class>
+        <class>ec.tod1.modelo.Producto</class>
+        <class>ec.tod1.modelo.TipoOrden</class>
+        <class>ec.tod1.modelo.TipoProducto</class>
+        
+	
+        <properties>
+            <!-- Configuring JDBC properties -->
+
+            <property name="javax.persistence.providerl" value="org.hibernate.ejb.HibernatePersistence"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:unit-testing-jpa"/>
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+
+            <!-- Hibernate properties -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+    
+    
+
+</persistence>

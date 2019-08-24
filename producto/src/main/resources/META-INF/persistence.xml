@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
+http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+    version="2.1">
+    <persistence-unit name="InventarioPU" transaction-type="JTA">
+        <jta-data-source>java:/InventarioDS</jta-data-source>
+        
+        <class>ec.tod1.modelo.Inventario</class>
+        <class>ec.tod1.modelo.Orden</class>
+        <class>ec.tod1.modelo.Producto</class>
+        <class>ec.tod1.modelo.TipoOrden</class>
+        <class>ec.tod1.modelo.TipoProducto</class>
+       
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <property name="hibernate.cache.use_query_cache" value="true"/>
+            
+        </properties>
+    </persistence-unit>
+</persistence>     
+    
