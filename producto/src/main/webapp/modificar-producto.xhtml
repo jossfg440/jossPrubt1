@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+ 
+  
+    	
+    	<h1>Ingresar Productos al Inventario</h1>
+    	
+    	<h2></h2>
+    	
+    	 <h:form id="frmIngresarInventario">
+    	  
+         <table>
+            <tr>
+              <td>
+                 <h:outputLabel for="codigoProducto" value="Codigo de Producto:" />
+              </td>
+              <td>
+                 <h:inputText id="codigoProducto" value="#{modificarInventarioControlador.producto.codigoProducto}" disabled="true" >
+                 
+                 
+                 </h:inputText> 
+              </td>
+              
+            </tr>
+            <tr>
+              <td>
+              	 <h:outputLabel for="cmbTipoProducto" value="Tipo de Producto:" />
+              
+              </td>
+              <td>
+               <h:selectOneMenu id="cmbTipoProducto"
+							value="#{modificarInventarioControlador.producto.codigoTipoProducto}" 
+							 required="true"
+							>
+							 <f:selectItem itemValue="#{null}" />
+							<f:selectItems
+								value="#{modificarInventarioControlador.listaTipoProductos}" var="c"
+								itemLabel="#{c.descripcion}" itemValue="#{c.codigoTipoProducto}" >
+								
+							</f:selectItems>
+							<f:ajax event="change" update="@this" />
+							
+						</h:selectOneMenu>
+              
+              </td>
+            </tr>
+            <tr>
+               <td>  <h:outputLabel for="descripcionProducto" value="Descripción:" /> </td>
+                <td>  <h:inputText id="descripcionProducto" value="#{modificarInventarioControlador.producto.descripcion}" >
+                      <f:ajax event="change" update="@this" />
+                </h:inputText>  </td>
+            </tr>
+             <tr>
+               <td>  <h:outputLabel for="precio" value="Precio:" /> </td>
+                <td>  <h:inputText id="precio" value="#{modificarInventarioControlador.producto.precio}" >
+                		 <f:convertNumber minFractionDigits="2" />
+                		 <f:ajax event="change" update="@this" /> 
+                     </h:inputText> 
+                                   
+                 </td>
+            </tr>
+             <tr>
+               <td>  <h:outputLabel for="fecha" value="Fecha: dd/mm/YYYY" /> </td>
+                <td>  <h:inputText id="fecha" value="#{modificarInventarioControlador.producto.fecha}"  >
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            <f:ajax event="change" update="@this" />  
+                      </h:inputText> 
+                      
+                 </td>
+            </tr>
+               <tr>
+               <td>  <h:outputLabel for="fecha" value="Cantidad:" /> </td>
+                <td>  <h:inputText id="cantidad" value="#{modificarInventarioControlador.producto.cantidad}" >
+                         <f:ajax event="change" update="@this" /> 
+                      </h:inputText>  </td>
+            </tr>
+    	 </table>
+    	
+    	     <h:commandButton value="Modificar" type="submit" action="#{modificarInventarioControlador.modificar()}" immediate="true" >
+					<f:param name="codigoTipoProducto" value="#{modificarInventarioControlador.codigoTipoProducto}" />
+					<f:param name="descripcion" value="#{modificarInventarioControlador.descripcion}" />
+					<f:param name="precio" value="#{modificarInventarioControlador.precio}" />
+					<f:param name="fecha" value="#{modificarInventarioControlador.fecha}" />
+					<f:param name="cantidad" value="#{modificarInventarioControlador.cantidad}" />
+			</h:commandButton>
+    	    <h:outputText value=" Valores Modificados exitosamente!" rendered="#{facesContext.postback and empty facesContext.messageList and modoConsulta eq false  }" style="color: green;"/>
+    	    <h:commandLink
+					action="#{modificarInventarioControlador.consultarProducto()}"
+					value="Regresar">
+				</h:commandLink>
+    	 </h:form>
+
+
+   </ui:define>
+</ui:composition>

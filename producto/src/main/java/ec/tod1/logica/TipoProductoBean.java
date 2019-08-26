@@ -37,6 +37,10 @@ public class TipoProductoBean {
     	
     }
     
+    public List<TipoProducto> obtenerListaTipoProducto()  {
+    	return tipoProductoDao.obtenerListaTipoProducto();
+    }
+    
 
    
 

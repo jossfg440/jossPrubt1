@@ -6,11 +6,10 @@ package ec.tod1.web.controlador.inventario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-
 import ec.tod1.logica.ProductoBean;
 import ec.tod1.logica.TipoProductoBean;
 import ec.tod1.logica.util.ConsultaExcepcion;
@@ -22,8 +21,10 @@ import ec.tod1.modelo.TipoProducto;
  *  Controla la consultas al Inventario de Productos
  *   @author jossfg440 
  */
+
 @ViewScoped
-@Named(value = "consultarInventarioBean")
+
+@ManagedBean
 public class ConsultaInventarioControlador implements Serializable {
 
 	/**
@@ -45,8 +46,10 @@ public class ConsultaInventarioControlador implements Serializable {
 	private List<Producto> listaProductos;
 	private List<TipoProducto> listaTipoProductos;
 	private Producto producto ;
+	private TipoProducto tipoProducto ;
 	private Boolean modoConsulta;
 	private Boolean primeraConsulta;
+
 	private String codigoTipoProducto;
 
 	
@@ -57,10 +60,10 @@ public class ConsultaInventarioControlador implements Serializable {
 	 */
 	public ConsultaInventarioControlador() {
 		super();
-		init();
+		//init();
 	}
 
-	
+	@PostConstruct
 	public void init() {
 		iniciarlizarVariables();
 		iniciarlizarVariablesConsultaInventario();
@@ -91,28 +94,35 @@ public class ConsultaInventarioControlador implements Serializable {
 	public String crearProducto() {
 
 		
-		return "crear-producto";
+		return "crear-producto.xhtml";
 		
 	}
 	
-	
-	public void setInventarioSeleccionado(String inventarioSeleccionado) {
-		
+	public String modificarProducto() {
 		setModoConsulta(false);
+		
+		return "modificar-producto.xhtml";
+		
 	}
-
-	public String getInventarioSeleccionado() {
-		return "ver-detalle-consulta-horario-aplicacion.xhtml";
-	}
-
+	
+	
 	
 	public void consultar() {
        
-        
-        
+      	
         try {
-			setListaProductos( productoBean
-					.obtenerListaProductoPorCodigoTipoProducto( Long.valueOf( getCodigoTipoProducto() ) ) )  ;	
+        	System.out.println("llgA"+ getCodigoTipoProducto());
+        	
+        	
+             	
+        	System.out.println("llg"+ getCodigoTipoProducto());
+        	if ( null != getCodigoTipoProducto()  ) {
+        		setListaProductos( productoBean
+    					.obtenerListaProductoPorCodigoTipoProducto( Long.valueOf( getCodigoTipoProducto() ) ) )  ;
+        		
+        	}
+        	
+				
 		} catch (ConsultaExcepcion e) {
 			setListaProductos(null); 
 			
@@ -136,13 +146,10 @@ public class ConsultaInventarioControlador implements Serializable {
 	private void iniciarlizarVariablesConsultaInventario() {
 		setPrimeraConsulta(Boolean.TRUE);
 		if ( null != tipoProductoBean ) {
+			System.out.println("llg");
 			setListaTipoProductos( tipoProductoBean.obtenerTodos());
 				
-		} else {
-			tipoProductoBean = new TipoProductoBean();
-			setListaTipoProductos( tipoProductoBean.obtenerTodos());
-			
-		}
+		} 
 		
 		setModoConsulta(true);
 		
@@ -209,6 +216,14 @@ public class ConsultaInventarioControlador implements Serializable {
 
 	public void setCodigoTipoProducto(String codigoTipoProducto) {
 		this.codigoTipoProducto = codigoTipoProducto;
+	}
+
+	public TipoProducto getTipoProducto() {
+		return tipoProducto;
+	}
+
+	public void setTipoProducto(TipoProducto tipoProducto) {
+		this.tipoProducto = tipoProducto;
 	}
 	
 	

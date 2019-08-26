@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+ 
+  
+    	
+    	<h1>Ingresar Productos al Inventario</h1>
+    	
+    	<h2></h2>
+    	
+    	 <h:form id="frmIngresarInventario">
+    	  
+         <table>
+            <tr>
+              <td>
+              	 <h:outputLabel for="cmbTipoProducto" value="Tipo de Producto:" />
+              
+              </td>
+              <td>
+               <h:selectOneMenu id="cmbTipoProducto"
+							value="#{crearInventarioControlador.codigoTipoProducto}" 
+							 required="true"
+							>
+							 <f:selectItem itemValue="#{null}" />
+							<f:selectItems
+								value="#{crearInventarioControlador.listaTipoProductos}" var="c"
+								itemLabel="#{c.descripcion}" itemValue="#{c.codigoTipoProducto}" >
+								
+							</f:selectItems>
+							<f:ajax event="change" update="@this" />
+							
+						</h:selectOneMenu>
+              
+              </td>
+            </tr>
+            <tr>
+               <td>  <h:outputLabel for="descripcionProducto" value="Descripción:" /> </td>
+                <td>  <h:inputText id="descripcionProducto" value="#{crearInventarioControlador.descripcion}" >
+                      <f:ajax event="change" update="@this" />
+                </h:inputText>  </td>
+            </tr>
+             <tr>
+               <td>  <h:outputLabel for="precio" value="Precio:" /> </td>
+                <td>  <h:inputText id="descripcion" value="#{crearInventarioControlador.producto.precio}" >
+                		 <f:ajax event="change" update="@this" /> 
+                     </h:inputText> 
+                                   
+                 </td>
+            </tr>
+             <tr>
+               <td>  <h:outputLabel for="fecha" value="Fecha: dd/mm/YYYY" /> </td>
+                <td>  <h:inputText id="fecha" value="#{crearInventarioControlador.producto.fecha}"  >
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            <f:ajax event="change" update="@this" />  
+                      </h:inputText> 
+                      
+                 </td>
+            </tr>
+               <tr>
+               <td>  <h:outputLabel for="fecha" value="Cantidad:" /> </td>
+                <td>  <h:inputText id="cantidad" value="#{crearInventarioControlador.producto.cantidad}" >
+                         <f:ajax event="change" update="@this" /> 
+                      </h:inputText>  </td>
+            </tr>
+    	 </table>
+    	
+    	     <h:commandButton value="Crear" type="submit" action="#{crearInventarioControlador.guardar()}" immediate="true">
+					<f:param name="codigoTipoProducto" value="#{crearInventarioControlador.codigoTipoProducto}" />
+					<f:param name="descripcion" value="#{crearInventarioControlador.descripcion}" />
+					<f:param name="precio" value="#{crearInventarioControlador.precio}" />
+					<f:param name="fecha" value="#{crearInventarioControlador.fecha}" />
+					<f:param name="cantidad" value="#{crearInventarioControlador.cantidad}" />
+			</h:commandButton>
+    	    <h:outputText value=" Valores Ingresados exitosamente!" rendered="#{facesContext.postback and empty facesContext.messageList}" style="color: green;"/>
+    	    <h:commandLink
+					action="#{crearInventarioControlador.consultarProducto()}"
+					value="Regresar">
+				</h:commandLink>
+    	 </h:form>
+
+
+   </ui:define>
+</ui:composition>

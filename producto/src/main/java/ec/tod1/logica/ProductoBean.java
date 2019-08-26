@@ -48,6 +48,19 @@ public class ProductoBean {
     	return productoDao.obtenerListaProductoPorCodigoTipoProducto(codigoTipoProducto);
     }
     
+    public Producto crear (Producto producto)  {
+		return productoDao.crear( producto );
+		
+	}
+    
+    public Producto modificar (Producto producto)  {
+    	 if ( producto.getCantidad() > 0) {
+    		 return productoDao.modificar( producto );
+    	 }
+		 return null;
+		
+	}
+    
     
     
 

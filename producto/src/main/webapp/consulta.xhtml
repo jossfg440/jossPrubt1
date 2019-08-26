@@ -20,22 +20,35 @@
                </td>
                 <td>
                    <h:selectOneMenu id="cmbTipoProducto"
-							value="#{consultarInventarioBean.codigoTipoProducto}">
+							value="#{consultaInventarioControlador.codigoTipoProducto}" 
+							 
+							>
+							 <f:selectItem itemValue="#{null}" />
 							<f:selectItems
-								value="#{consultarInventarioBean.listaTipoProductos}" var="c"
-								itemLabel="#{c.descripcion}" itemValue="#{c.codigoTipoProducto}" />
-						</h:selectOneMenu></td>
+								value="#{consultaInventarioControlador.listaTipoProductos}" var="c"
+								itemLabel="#{c.descripcion}" itemValue="#{c.codigoTipoProducto}" >
+								
+							</f:selectItems>
+							<f:ajax event="change" update="@this" />
+						</h:selectOneMenu>
+					 
+						</td>
             </tr>
            
          </table>
-         <p>
-            <h:commandButton  id="consultar"  value="Consultar" actionListener="#{consultarInventarioBean.consultar()}" />
-            
-            <h:outputText value=" All clear!" rendered="#{facesContext.postback and empty facesContext.messageList}" style="color: green;"/>
+         <p>  #{consultaInventarioControlador.codigoTipoProducto}
+				<h:commandButton value="Consultar" type="submit" action="#{consultaInventarioControlador.consultar()}" immediate="true">
+					<f:param name="codigoTipoProducto" value="#{consultaInventarioControlador.codigoTipoProducto}" />
+				</h:commandButton>
+				
+				
+
+				<h:outputText value=" All clear!" rendered="#{facesContext.postback and empty facesContext.messageList}" style="color: green;"/>
          </p>
-      </h:form>
+         
+      
       <h2>Resultados</h2>
-      <h:dataTable var="producto" value="#{consultarInventarioBean.listaProductos}" id="tblInventario" >
+      <h:dataTable var="producto" value="#{consultaInventarioControlador.listaProductos}" id="tblInventario" >
          <h:column>
             <f:facet name="header">Código</f:facet>
             #{producto.codigoProducto}
@@ -52,6 +65,23 @@
             <f:facet name="header">Tipo</f:facet>
             #{producto.tipoProducto.descripcion}
          </h:column>
+         <h:column>
+				<h:commandLink
+					action="#{consultaInventarioControlador.modificarProducto()}"
+					value="Modificar Inventario">
+					<f:param name="codigoProducto" value="#{producto.codigoProducto}" />
+					
+				</h:commandLink>
+			</h:column>
       </h:dataTable>
+      
+      
+       
+      <h:commandButton value="Ingresar Producto"  action="#{consultaInventarioControlador.crearProducto()}" immediate="true">
+					
+	 </h:commandButton>
+	 
+	  </h:form>
+      
    </ui:define>
 </ui:composition>

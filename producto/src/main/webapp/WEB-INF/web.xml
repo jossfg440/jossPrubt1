@@ -32,15 +32,7 @@
       <param-value>true</param-value>
    </context-param>
    
-   <!-- pr -->
-   <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>barcelona-blue</param-value>
-    </context-param>
-    <context-param>
-        <param-name>primefaces.FONT_AWESOME</param-name>
-        <param-value>true</param-value>
-    </context-param>
+  
 
    <persistence-unit-ref>
       <persistence-unit-ref-name>InventarioPU/pu</persistence-unit-ref-name>

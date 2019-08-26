@@ -5,9 +5,14 @@
 
 package ec.tod1.logica.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+
+import ec.tod1.logica.util.ConsultaExcepcion;
 import ec.tod1.logica.util.PersistenciaDao;
+import ec.tod1.modelo.Producto;
 import ec.tod1.modelo.TipoProducto;
 
 
@@ -29,6 +34,34 @@ public class TipoProductoDao extends PersistenciaDao<TipoProducto, Long> {
     public TipoProductoDao(EntityManager em) {
         super(TipoProducto.class, em);
     }
+    
+    /**
+     * @param codigoTipoProducto  Corresponde código de tipo de producto
+     * 
+     * 					
+     * @return List<Producto> retorna el listado de productos
+     * @throws Exception 
+     */
+    public List<TipoProducto> obtenerListaTipoProducto()  {
+  	 
+  	  String cadenaConsulta;
+  	  cadenaConsulta = "SELECT e FROM TipoProducto e ";
+  	  tipoConsulta = em.createQuery(cadenaConsulta, TipoProducto.class);
+  	 
+  	 
+
+  	  List<TipoProducto> listaTipoProducto = tipoConsulta.getResultList();
+  	  if (listaTipoProducto.isEmpty()) {
+
+  		  throw new ConsultaExcepcion("NO existen registros para codigo: " );
+
+  	  }
+
+  	  return listaTipoProducto;
+
+      
+    }
+
 
     
 }
